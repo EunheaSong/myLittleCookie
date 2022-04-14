@@ -1,21 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  th:replace="~{/layouts/mainLayout :: layout(~{::title}, ~{::section})}"
+       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"  integrity="sha384MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"crossorigin="anonymous"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Title</title>
+    <title>MyLittleCookie</title>
 </head>
 <body>
- 회원가입 회원가입
+<section>
+    회원가입 회원가입
+    <form action="/user/join" method="post" th:object="${userRequestDto}">
+        <div class="mb-3">
+            <label for="exampleInputUsername" class="form-label">Email address</label>
+            <input type="text" class="form-control" id="exampleInputUsername" aria-describedby="username"
+                   placeholder="아이디를 입력해주세요">
+            <div id="username" class="form-text">6자~15자. 영문 혹은 영문 숫자 조합.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputUserNickName" class="form-label">Email address</label>
+            <input type="text" class="form-control" id="exampleInputUserNickName" aria-describedby="userNickName"
+                   placeholder="닉네임을 입력해주세요">
+            <div id="userNickName" class="form-text">2~10자. 한글,영문,숫자 중 2가지 조합.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호를 입력해주세요">
+            <div id="userPassword" class="form-text">8자 이상. 영문,숫자,특수문자(!@#$%^&*) 중 2가지 조합.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword2" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호를 재확인 해주세요">
+            <div id="userPassword2" class="form-text">동일한 비밀번호를 입력해주세요.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            placeholder="이메일 주소를 입력해주세요">
+            <div id="emailHelp" class="form-text">안내 및 본인확인을 위한 이메일 주소를 입력해주세요.</div>
+        </div>
 
-<form>
+    </form>
 
-</form>
-<button>회원가입</button>
-<button>취소</button>
+    <button>회원가입</button>
+
+</section>
+
+
 </body>
 </html>
