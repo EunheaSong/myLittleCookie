@@ -1,46 +1,79 @@
 <!DOCTYPE html>
-<html  th:replace="~{/layouts/mainLayout :: layout(~{::title}, ~{::section})}"
+<html  th:replace="~{/layouts/mainLayout :: layout(~{::title}, ~{::section}, ~{::script})}"
        xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <title>MyLittleCookie</title>
 </head>
+<script th:inline="javascript">
+    // let username = $('#inputUsername').val()
+    // function checkUsername(){
+    //     $.ajax({
+    //         type: "POST",
+    //         url: `/user/check`,
+    //         contentType: "application/json", // JSON 형식으로 전달함을 알리기
+    //         data: JSON.stringify(username),
+    //         success: function (response) {
+    //             alert('사용가능한 아이디입니다.');
+    //         }, error : function (){
+    //             alert('중복된 아이디가 존재합니다.')
+    //         }
+    //     });
+    // }
+    $(document).ready(function (){
+        var message = [[${message}]];
+        if(message != null){
+            alert(message);
+        }
+    })
+
+
+
+</script>
 <body>
 <section>
     회원가입 회원가입
-    <form action="/user/join" method="post" th:object="${userRequestDto}">
+    <form action="/user/join" th:action th:object="${userRequestDto}" method="post">
         <div class="mb-3">
-            <label for="exampleInputUsername" class="form-label">Email address</label>
-            <input type="text" class="form-control" id="exampleInputUsername" aria-describedby="username"
-                   placeholder="아이디를 입력해주세요">
-            <div id="username" class="form-text">6자~15자. 영문 혹은 영문 숫자 조합.</div>
+            <label th:for="username" class="form-label">아이디</label>
+            <input type="text" class="form-control" id="username" aria-describedby="username"
+                   placeholder="아이디를 입력해주세요" th:field="*{username}" th:errorclass="field-error">
+            <div id="usernameRule" class="form-text">6자~15자. 영문 혹은 영문 숫자 조합.</div>
+            <p class="field-error" th:errors="*{username}"></p>
+        </div>
+<!--        <button type="button" class="btn btn-outline-secondary" onclick="checkUsername()">중복확인</button>-->
+        <div class="mb-3">
+            <label for="nickname" class="form-label">닉네임</label>
+            <input type="text" class="form-control" id="nickname" aria-describedby="userNickname"
+                   placeholder="닉네임을 입력해주세요" th:field="*{nickname}" th:errorclass="field-error">
+            <div id="userNicknameRule" class="form-text">2~10자. 한글,영문,숫자 중 2가지 조합.</div>
+            <p class="field-error" th:errors="*{nickname}"></p>
         </div>
         <div class="mb-3">
-            <label for="exampleInputUserNickName" class="form-label">Email address</label>
-            <input type="text" class="form-control" id="exampleInputUserNickName" aria-describedby="userNickName"
-                   placeholder="닉네임을 입력해주세요">
-            <div id="userNickName" class="form-text">2~10자. 한글,영문,숫자 중 2가지 조합.</div>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호를 입력해주세요">
+            <label for="inputPassword1" class="form-label">비밀번호</label>
+            <input type="password" class="form-control" id="inputPassword1" placeholder="비밀번호를 입력해주세요"
+                   th:field="*{password}" th:errorclass="field-error">
             <div id="userPassword" class="form-text">8자 이상. 영문,숫자,특수문자(!@#$%^&*) 중 2가지 조합.</div>
+            <p class="field-error" th:errors="*{password}"></p>
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword2" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호를 재확인 해주세요">
+            <label for="inputPassword2" class="form-label">비밀번호 확인</label>
+            <input type="password" class="form-control" id="inputPassword2" placeholder="비밀번호를 재확인 해주세요"
+                   th:field="*{checkPassword}" th:errorclass="field-error">
             <div id="userPassword2" class="form-text">동일한 비밀번호를 입력해주세요.</div>
+            <p class="field-error" th:errors="*{checkPassword}"></p>
+
         </div>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <label for="exampleInputEmail1" class="form-label">이메일</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="이메일 주소를 입력해주세요">
+            placeholder="이메일 주소를 입력해주세요" th:field="*{email}" th:errorclass="field-error">
             <div id="emailHelp" class="form-text">안내 및 본인확인을 위한 이메일 주소를 입력해주세요.</div>
+            <p class="field-error" th:errors="*{email}" ></p>
         </div>
-
+        <button type="submit">회원가입</button>
     </form>
 
-    <button>회원가입</button>
+
 
 </section>
 
