@@ -5,8 +5,10 @@ package com.mylittlecookie123.mylittlecookie.controller;
 
 import com.mylittlecookie123.mylittlecookie.dto.UserRequestDto;
 import com.mylittlecookie123.mylittlecookie.repository.UserRepository;
+import com.mylittlecookie123.mylittlecookie.security.UserDetailsImpl;
 import com.mylittlecookie123.mylittlecookie.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,6 +49,16 @@ public class UserController {
             model.addAttribute("message",e.getMessage());
             return "join";
         }
+    }
+
+    @GetMapping("/loginView")
+    public String login(Model model, @AuthenticationPrincipal UserDetailsImpl userDetail) {
+        if(userDetail != null) {
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("message", "이미 로그인 하셨습니다.");
+        } else
+            model.addAttribute("loggedIn", false);
+        return "login";
     }
 
 }
