@@ -42,13 +42,16 @@ public class UserService {
         if (!userRequestDto.getPassword().equals(userRequestDto.getCheckPassword())){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
+
         String password = passwordEncoder.encode(userRequestDto.getPassword());
+
         User user = User.builder()
                 .username(userRequestDto.getUsername())
                 .password(password)
                 .nickname(userRequestDto.getNickname())
                 .email(userRequestDto.getEmail())
                 .build();
+
         userRepository.save(user);
     }
 
